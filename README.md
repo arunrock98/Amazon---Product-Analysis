@@ -16,7 +16,6 @@ Legal Terms
 Business Understanding
 E-commerce
 
-
 E-commerce is the purchasing, selling and exchanging goods and services over computer networks (internet) through which transaction or terms of sale are performed Electronically
 
 Step by step
@@ -67,33 +66,35 @@ The Information is finally saved in the set variables - Beautifulsoup is the lib
 Scraping flow
 The following process has been repeated 8 times for 8 different Product types: Processors, Laptops, Cameras, Mouses, Monitors, Headphones, Smartphones, Keyboards.
 
-The first step is to create a txt file (Create search_urls.txt) which will contain all the Urls of the products. Through a for loop I will be able to scrape the website and get all the first 400 Urls (limit declared in the range). The output of this action is to be found in the search_urls.txt
+* The first step is to create a txt file (Create search_urls.txt) which will contain all the Urls of the products. Through a for loop I will be able to scrape the website and get all the first 400 Urls (limit declared in the range). The output of this action is to be found in the search_urls.txt
 Once all the Urls have been scraped it is time to extract the information about the articles.
 
-Next a yml file is created (search.yml).
+* Next a yml file is created (search.yml).
 This type of language is used for configuration files and in applications where data is being stored or transmitted. In my case it will contain all the element paths from where the informations would be extracted and my goal is to get the components of the articles I am interested in.
 I will be looking for multiple information like title, the Url, the rating given from the consumers, the review count and the price of each article.
 
-The search_urls.txt and the search.yml will be then used by the search.py as inputs and will produce as output the search_output.jsonl, a long list of articles with all the components information nested in a json file, and the product_urls.txt containing all urls of the single products for further scraping.
+* The search_urls.txt and the search.yml will be then used by the search.py as inputs and will produce as output the search_output.jsonl, a long list of articles with all the components information nested in a json file, and the product_urls.txt containing all urls of the single products for further scraping.
 
-The search.py uses different packages, libraries and file format like:
+* The search.py uses different packages, libraries and file format like:
 Selectorlib (a Python package for extracting data from a HTML Page) which will read the yml file and extract the data I marked up on the page.
 
-Requests a Python library used to easily make HTTP requests and getting raw HTML content from websites.
+* Requests a Python library used to easily make HTTP requests and getting raw HTML content from websites.
 
-Json (JavaScript Object Notation) is an open standard data format, used for storing and exchanging data.
+* Json (JavaScript Object Notation) is an open standard data format, used for storing and exchanging data.
 
-fake_useragent a library from which we will import UserAgent.
+* fake_useragent a library from which we will import UserAgent.
 
 As the article components where not enough for my scope, more information about every article needed to be extracted therefore a products.yml was created to select informations from teh product pages. By looking in the CSS elements of several products I was able to understand where all information where hidden in the text and extract them. For this purpose I installed a chrome extension to use the selector gadget
 
-Next I created the product.py which used the product_urls.txt and products.yml as inputs and gave me as output the product_output.jsonl
+Next creating the product.py which used the product_urls.txt and products.yml as inputs and gave me as output the product_output.jsonl
 
 Finally the json files where validated with jsonlint and after exporting them to my Visual studio code notebook were ready for the long cleaning process until creatin of 2 csv files ready for further analysis through Mysql.
 
-Data cleaning
+* Data cleaning
+
 The search files were quite easy to clean, they required mainly extracting data from strings, deleting some additional text and changing Data type to the appropriate one.
-Extracting the Asin from the Urls required some additional work "cutting" the Urls into pieces and keeping just the value of interest.
+Extracting the 'ASIN' from the Urls required some additional work "Slicing" the Urls into pieces and keeping just the value of interest.
+Note: 'ASIN' = a unique product code of the product.
 
 The product files instead required a way longer and more complicated journey: when scraping I retrieved all possible data that on the Amazon website appeared to be stored in different tables.
 To open this .ipynb please consider using nbviewer and paste the github url in the bar.
@@ -103,15 +104,20 @@ Please follow step by step the notebook to see all required steps until data was
 
 This process has been repeated 8 times for 8 different Product types: Processors, Laptops, Cameras, Mouses, Monitors, Headphones, Smartphones, Keyboards. I will here link just the final csv of cleaned data.
 
-Mysql
+* Mysql
+
 The cleaned data has been subsequently pushed to Mysql for further analysis - link
 
 To achieve this result I used PyMySQL (here all instructions to install it), an interface for connecting to a MySQL database server from Python. It implements the Python Database API v2. 0 and contains a pure-Python MySQL client library. Other availabale options are MySQL/connector for Python or MySQLdb.
 
-More details about how to create the data source, creating the engine and the connection to Mysql are povided in this Python notebook.
+More details about how to create the data source, creating the engine and the connection to Mysql are provided in this Python notebook.
 
-Tableau
-Amazon.de - International market
+creating the database for each electronic product_summary, product_details and product sales data.  
+
+* Tableau
+
+Amazon.com - Electronics products KPI Dashboard generation
+Sales data - Sales Trend and KPI Dashboard generation
 
 Legal Terms
 All data has been used only for educational purpose.
